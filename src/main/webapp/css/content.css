@@ -1,0 +1,56 @@
+body {
+    position: relative;
+}
+
+.sideBar {
+    padding: 0;
+    height: 100%;
+    background-color: #8d7b55;
+}
+
+.content {
+    height: 100%;
+    padding: 0;
+}
+
+
+.item {
+    background-color: silver;
+    padding: 3px;
+    border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -moz-border-radius: 12px 12px 12px 12px;
+}
+
+.item1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.item1:hover {
+    background-color: #e8e8e8;
+    cursor: pointer;
+}
+
+.formAdd{
+    position: fixed;
+    width: 550px;
+    height: fit-content;
+    left: 50%;
+    top: 25%;
+    border: #d22323 solid 2px;
+    margin: 0 auto;
+    transform: translate(-50%, 0);
+    background-color: #e8e8e8;
+}
+
+#back-drop {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(128, 120, 120, 0.7);
+}
+
