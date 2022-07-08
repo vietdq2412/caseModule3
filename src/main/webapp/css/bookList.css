@@ -1,0 +1,62 @@
+.item i, p {
+    font-size: small;
+}
+
+.item {
+    height: fit-content;
+    width: fit-content;
+    padding: 15px;
+}
+
+.form-btn {
+    text-align: center;
+}
+
+#item-image {
+    width: 200px;
+    height: 200px;
+}
+
+.cancel-btn {
+    background-color: #d22323;
+    width: fit-content;
+    border-radius: 8px 8px 8px 8px;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    -moz-border-radius: 8px 8px 8px 8px;
+}
+
+.cancel-btn:hover {
+    background-color: rgba(215, 121, 121, 0.47);
+    cursor: pointer;
+}
+
+.add-btn {
+    width: fit-content;
+    border-radius: 8px 8px 8px 8px;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    -moz-border-radius: 8px 8px 8px 8px;
+}
+
+.formAdd {
+    height: max-content;
+    padding: 5px;
+}
+
+.sideBar, .content {
+    padding: 0;
+}
+
+.custom-select {
+    width: 100%;
+    margin: 0;
+}
+
+hr {
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
+.navBook{
+    border: #d22323 solid 2px;
+    height: fit-content;
+}

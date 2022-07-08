@@ -17,7 +17,7 @@
     .title {
         text-align: center;
         height: 20%;
-        background-color: rgba(199, 182, 182, 0.49);
+        background-color: #8DD7F7;
         margin-bottom: 5px;
     }
 
@@ -44,18 +44,17 @@
         padding: 0;
     }
     #menu ul {
-        background: #8d7b55;
+        background: #00ADEE;
         width: 100%;
-        padding: 0;
         list-style-type: none;
         text-align: left;
+        padding: 0;
     }
     #menu li {
         width: auto;
         height: 40px;
         line-height: 40px;
-        border-bottom: 1px solid #e8e8e8;
-        padding: 0 1em;
+        padding: 0 5px;
     }
     #menu a {
         text-decoration: none;
@@ -69,6 +68,7 @@
 
     #menu ul li {
         position: relative;
+        padding-left: 18px;
     }
 </style>
 <%@ taglib prefix='navBar' uri='http://java.sun.com/jsp/jstl/core' %>

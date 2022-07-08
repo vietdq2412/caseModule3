@@ -8,6 +8,10 @@ public class Book {
     private Author author;
     private Position position;
     private Category category;
+    private int authorId;
+    private int positionId;
+    private int categoryId;
+
 
     public Book(int id, String title, String description, String image, Author author, Position position, Category category) {
         this.id = id;
@@ -17,6 +21,15 @@ public class Book {
         this.author = author;
         this.position = position;
         this.category = category;
+    }
+
+    public Book(String title, String description, String image, int authorId, int positionId, int categoryId) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+        this.authorId = authorId;
+        this.positionId = positionId;
+        this.categoryId = categoryId;
     }
 
     public Book(String title, String description, String image, Author author, Position position, Category category) {
@@ -86,7 +99,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "'"+ title+ "', '"+ description+"', '"+ image+"',"+ author.getId()+","+ position.getId()+","+category.getId();
+        return "'"+ title+ "', '"+ description+"', '"+ image+"',"+ authorId+","+ positionId+","+categoryId;
     }
 
     public String getColumns(){

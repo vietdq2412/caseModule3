@@ -16,7 +16,7 @@ To change this template use File | Settings | File Templates.
     <%@include file="../linkBootstrap.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        .sideBar, .content {
+        .sideBar {
             padding: 0;
         }
     </style>
@@ -54,7 +54,7 @@ To change this template use File | Settings | File Templates.
                 </div>
                 <div class="row px-xl-5" style="width: 100%">
                     <c:forEach items="${categoryList}" var="category">
-                        <div class="col-lg-3 col-md-6 col-sm-12 pb-1" style="padding: 0">
+                        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                             <div class="item">
                             Name:<i><c:out value="${category.getName()}"></c:out></i><br>
                             </div>

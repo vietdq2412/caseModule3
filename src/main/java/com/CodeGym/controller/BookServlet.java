@@ -17,17 +17,33 @@ import java.io.IOException;
 import java.util.HashMap;
 
 @WebServlet(name = "BookServlet", value = "/book")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10,      // 10 MB
+        maxRequestSize = 1024 * 1024 * 100   // 100 MB
+)
 public class BookServlet extends HttpServlet {
     IBookService bookService = BookService.getInstance();
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = "";
         action = request.getParameter("action");
-
+        String catID = request.getParameter("category-id");
+        String authorID = request.getParameter("author-id");
+        String positionID = request.getParameter("position-id");
         switch (action) {
             case "list":
-                showListBook(request, response);
+                String condition = "";
+                if (catID != null) {
+                    condition = "where categoryId = " + catID;
+                }
+                if (authorID != null) {
+                    condition = "where authorId = " + authorID;
+                }
+                if (positionID != null) {
+                    condition = "where positionId = " + positionID;
+                }
+                showListBook(request, response, condition);
                 break;
             case "add":
                 formAdd(request, response);
@@ -36,6 +52,10 @@ public class BookServlet extends HttpServlet {
                 formUploadImg(request, response);
                 break;
         }
+    }
+
+    private void showListBookByCategory(HttpServletRequest request, HttpServletResponse response, String catID) {
+
     }
 
     private void formUploadImg(HttpServletRequest request, HttpServletResponse response) {
@@ -53,9 +73,9 @@ public class BookServlet extends HttpServlet {
         }
     }
 
-    private HashMap<Integer, Book> showListBook(HttpServletRequest request, HttpServletResponse response) {
+    private HashMap<Integer, Book> showListBook(HttpServletRequest request, HttpServletResponse response, String condition) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
-        HashMap<Integer, Book> bookHashMap = bookService.find("");
+        HashMap<Integer, Book> bookHashMap = bookService.find(condition);
         request.setAttribute("listBook", bookHashMap.values());
         HashMap<Integer, Category> categoryHashMap = CategoryService.getInstance().find("");
         request.setAttribute("listCategory", categoryHashMap.values());
@@ -99,18 +119,14 @@ public class BookServlet extends HttpServlet {
     private void addBook(HttpServletRequest request, HttpServletResponse response) {
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String image = "";
         int authorId = Integer.parseInt(request.getParameter("author"));
         int categoryId = Integer.parseInt(request.getParameter("category"));
         int positionId = Integer.parseInt(request.getParameter("position"));
-
-        Author author = AuthorService.getInstance().findById(authorId);
-        Position position = PositionService.getInstance().findById(positionId);
-        Category category = CategoryService.getInstance().findById(categoryId);
-        Book book = new Book(title,description,image,author,position,category);
+        String image = request.getParameter("image");
+        Book book = new Book(title, description, image, authorId, positionId, categoryId);
         try {
             BookService.getInstance().create(book);
-            response.sendRedirect("/position?action=list");
+            response.sendRedirect("/book?action=list");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

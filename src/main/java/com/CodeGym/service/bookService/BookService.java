@@ -1,7 +1,13 @@
 package com.CodeGym.service.bookService;
 
+import com.CodeGym.model.Author;
 import com.CodeGym.model.Book;
+import com.CodeGym.model.Category;
+import com.CodeGym.model.Position;
 import com.CodeGym.service.DBHandler;
+import com.CodeGym.service.authorService.AuthorService;
+import com.CodeGym.service.categoryService.CategoryService;
+import com.CodeGym.service.positionService.PositionService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +39,8 @@ public class BookService implements IBookService {
     public HashMap<Integer, Book> find(String condition) {
         HashMap<Integer, Book> bookMap = new HashMap<>();
         ResultSet rs = bookDBHandler.findAllByCondition(BOOK_TABLE,condition);
+
+
         try {
             while (rs.next()){
                 String title = rs.getString("title");
@@ -42,8 +50,12 @@ public class BookService implements IBookService {
                 int authorId = rs.getInt("authorId");
                 int positionId = rs.getInt("positionId");
                 int categoryId = rs.getInt("positionId");
-                //Book book = new Book(id, title, description,image, authorId, positionId,categoryId);
-                //bookMap.put(id, book);
+                Author author = AuthorService.getInstance().findById(authorId);
+                Position position = PositionService.getInstance().findById(positionId);
+                Category category = CategoryService.getInstance().findById(categoryId);
+
+                Book book = new Book(id, title, description,image, author, position,category);
+                bookMap.put(id, book);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

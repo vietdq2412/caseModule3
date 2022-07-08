@@ -14,60 +14,13 @@ To change this template use File | Settings | File Templates.
 <head>
     <title>list book</title>
     <%@include file="../linkBootstrap.jsp" %>
+    <link rel="stylesheet" href="/../../css/bookList.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <style>
-        .item i, p {
-            font-size: small;
-        }
-
-        .item {
-            height: 150px;
-        }
-
-        .form-btn {
-            text-align: center;
-        }
-
-        .cancel-btn {
-            background-color: #d22323;
-            width: fit-content;
-            border-radius: 8px 8px 8px 8px;
-            -webkit-border-radius: 8px 8px 8px 8px;
-            -moz-border-radius: 8px 8px 8px 8px;
-        }
-
-        .cancel-btn:hover {
-            background-color: rgba(215, 121, 121, 0.47);
-            cursor: pointer;
-        }
-
-        .add-btn {
-            width: fit-content;
-            border-radius: 8px 8px 8px 8px;
-            -webkit-border-radius: 8px 8px 8px 8px;
-            -moz-border-radius: 8px 8px 8px 8px;
-        }
-
-        .formAdd {
-            height: max-content;
-            padding: 5px;
-        }
-
-        .sideBar, .content {
-            padding: 0;
-        }
-
-        .custom-select {
-            width: 100%;
-            margin: 0;
-        }
-    </style>
 </head>
 <body>
 <div id="back-drop" hidden>
     <div class="formAdd" id="formAdd">
-        <form action="/book?action=create" method="post">
+        <form action="/book?action=create" method="post" enctype="multipart/form-data">
             <div class="form-group row">
                 <label for="title" class="col-sm-3 col-form-label">Title</label>
                 <div class="col-sm-9 mt-2">
@@ -104,11 +57,21 @@ To change this template use File | Settings | File Templates.
                         </c:forEach>
                     </select>
                 </div>
-                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                <label for="image" class="col-sm-3 col-form-label">Title</label>
                 <div class="col-sm-9 mt-2">
+                    <input type="text" name="image" class="form-control" id="image" placeholder="book title">
+
+   +3. 56789O0-['][9LKIUHYMTREWE56+
+                3.W     O;'</div>*1@qqe59+
+ +               .
+63.*/0.
+                .0                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                <V VB VBGDRQAQA
+                   =
+                         L,;;M                           +`qaswdfsssswiv class="col-sm-9 mt-2">
                     <textarea type="text" id="description" name="description" class="form-control"
                               placeholder="Enter some description"></textarea>
-                </div>
+                </Vdiv>
             </div>
             <div class="form-group row mt-2">
                 <div class="col-6 form-btn">
@@ -123,30 +86,38 @@ To change this template use File | Settings | File Templates.
 </div>
 
 <div class="row" style="height: 100%">
-    <div class="col-2 sideBar">
+    <div class="col-2 sideBar" style="position: fixed;">
         <%@include file="../navBar.jsp" %>
     </div>
-
+    <div class="col-2"></div>
     <div class="col-10 content">
-        <div class="title">
+        <div class="row title">
             <h5>Category</h5>
+
         </div>
         <div class="container">
-            <div class="row">
+            <div class="row navBook">
+
+            </div>
+            <div class="row" style="margin-left: 10px">
                 <div class="row px-xl-5" style="width: 100%">
                     <div class="col-lg-3 col-md-6 col-sm-12 pb-1 item1" id="but1">
                         <h6 style="book: relative; margin: 0 auto"> Add new book</h6>
                     </div>
                 </div>
                 <div class="row px-xl-5" style="width: 100%">
-                    <c:forEach items="${bookList}" var="book">
-                        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                            <div class="item">
-                                Name:<c:out value="${book.getTitle()}"></c:out><br>
-                                <i>Limit: <c:out value="${book.getAuthor()}"></c:out></i><br>
-                                <i>On-shelf: <c:out value="${book.getImage()}"></c:out></i><br>
-                                <hr style="margin-top: 0">
-                                <p><c:out value="${book.getDescription()}"></c:out></p><br>
+                    <c:forEach items="${listBook}" var="book">
+                        <div class=" col-lg-3 col-md-6 col-sm-12 pb-1">
+                            <div class="card">
+                                <img style="width: 100%" class="card-img-top" src="${book.getImage()}"
+                                     alt="Card image cap" id="item-image">
+                                <hr>
+                                <div class="card-body" style="padding-top: 5px">
+                                    <h5 class="card-title">${book.getTitle()}</h5>
+                                    <h6 class="card-title">${book.getAuthor().getName()}</h6>
+                                    <h6 class="card-title">${book.getCategory().getName()}</h6>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
                             </div>
                         </div>
                     </c:forEach>
