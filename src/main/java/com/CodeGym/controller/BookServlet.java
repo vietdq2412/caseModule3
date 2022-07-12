@@ -9,11 +9,13 @@ import com.CodeGym.service.bookService.BookService;
 import com.CodeGym.service.bookService.IBookService;
 import com.CodeGym.service.categoryService.CategoryService;
 import com.CodeGym.service.positionService.PositionService;
+import com.google.gson.Gson;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 
 @WebServlet(name = "BookServlet", value = "/book")
@@ -23,7 +25,8 @@ import java.util.HashMap;
         maxRequestSize = 1024 * 1024 * 100   // 100 MB
 )
 public class BookServlet extends HttpServlet {
-    IBookService bookService = BookService.getInstance();
+    private IBookService bookService = BookService.getInstance();
+    private Gson gson = new Gson();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = "";
@@ -73,24 +76,39 @@ public class BookServlet extends HttpServlet {
         }
     }
 
-    private HashMap<Integer, Book> showListBook(HttpServletRequest request, HttpServletResponse response, String condition) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
+    private void showListBook(HttpServletRequest request, HttpServletResponse response, String condition) {
         HashMap<Integer, Book> bookHashMap = bookService.find(condition);
-        request.setAttribute("listBook", bookHashMap.values());
         HashMap<Integer, Category> categoryHashMap = CategoryService.getInstance().find("");
-        request.setAttribute("listCategory", categoryHashMap.values());
         HashMap<Integer, Position> positionHashMap = PositionService.getInstance().find("");
-        request.setAttribute("listPosition", positionHashMap.values());
         HashMap<Integer, Author> authorHashMap = AuthorService.getInstance().find("");
-        request.setAttribute("listAuthor", authorHashMap.values());
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/book/list.jsp");
+//        request.setAttribute("listBook", bookHashMap.values());
+//        request.setAttribute("listCategory", categoryHashMap.values());
+//        request.setAttribute("listPosition", positionHashMap.values());
+//        request.setAttribute("listAuthor", authorHashMap.values());
+//        try {
+//            requestDispatcher.forward(request, response);
+//        } catch (ServletException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        HashMap<String, HashMap> data = new HashMap<>();
+        data.put("listBook", bookHashMap);
+        data.put("listCategory", categoryHashMap);
+        data.put("listPosition", positionHashMap);
+        data.put("listAuthor", authorHashMap);
+        String booksJsonString = this.gson.toJson(data);
+        PrintWriter out = null;
         try {
-            requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
+            out = response.getWriter();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return bookHashMap;
+        response.setContentType("text/javascript");
+        response.setCharacterEncoding("UTF-8");
+        out.print(booksJsonString);
+        out.flush();
     }
 
 

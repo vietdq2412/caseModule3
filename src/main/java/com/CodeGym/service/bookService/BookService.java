@@ -39,8 +39,6 @@ public class BookService implements IBookService {
     public HashMap<Integer, Book> find(String condition) {
         HashMap<Integer, Book> bookMap = new HashMap<>();
         ResultSet rs = bookDBHandler.findAllByCondition(BOOK_TABLE,condition);
-
-
         try {
             while (rs.next()){
                 String title = rs.getString("title");

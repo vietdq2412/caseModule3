@@ -60,27 +60,21 @@ To change this template use File | Settings | File Templates.
                 <label for="image" class="col-sm-3 col-form-label">Title</label>
                 <div class="col-sm-9 mt-2">
                     <input type="text" name="image" class="form-control" id="image" placeholder="book title">
-
-   +3. 56789O0-['][9LKIUHYMTREWE56+
-                3.W     O;'</div>*1@qqe59+
- +               .
-63.*/0.
-                .0                <label for="description" class="col-sm-3 col-form-label">Description:</label>
-                <V VB VBGDRQAQA
-                   =
-                         L,;;M                           +`qaswdfsssswiv class="col-sm-9 mt-2">
+                </div>
+                <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                <div class="col-sm-9 mt-2">
                     <textarea type="text" id="description" name="description" class="form-control"
                               placeholder="Enter some description"></textarea>
-                </Vdiv>
-            </div>
-            <div class="form-group row mt-2">
-                <div class="col-6 form-btn">
-                    <button class="add-btn">Add</button>
+                    </Vdiv>
                 </div>
-                <div class="col-6 form-btn cancel-btn">
-                    <a id="but2">Cancel</a>
+                <div class="form-group row mt-2">
+                    <div class="col-6 form-btn">
+                        <button class="add-btn">Add</button>
+                    </div>
+                    <div class="col-6 form-btn cancel-btn">
+                        <a id="but2">Cancel</a>
+                    </div>
                 </div>
-            </div>
         </form>
     </div>
 </div>
@@ -126,8 +120,27 @@ To change this template use File | Settings | File Templates.
         </div>
     </div>
 </div>
-
+<h1 id="p"></h1>
 <script>
+    $(document).ready(function (){
+        let getListAjax = $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            //tên API
+            url: "http://localhost:8080/book?action=list",
+            //xử lý khi thành công
+            success: function (data){
+                print(data);
+            }
+        });
+    })
+
+    function print(data){
+        console.log(data);
+    }
     $(document).ready(function () {
         $("#but1").click(function () {
             document.getElementById("back-drop").hidden = false;

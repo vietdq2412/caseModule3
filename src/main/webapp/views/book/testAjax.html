@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+<script>
+    $(document).ready(function (){
+        let getListAjax = $.ajax({
+            url: 'http://localhost:8080/book?action=list',
+            contentType: 'text/javascript; charset=utf-8',
+            async: false,
+            cache: false,
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data){
+            }
+        });
+    })
+
+    function print(data){
+        console.log(data);
+    }
+</script>
+</body>
+</html>
